@@ -68,7 +68,11 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="#">Home</a>
+                        <form action="{{ route('checklogout') }}" method="POST">
+                            @csrf
+                            <input type="submit" value="LOGOUT">
+                        </form>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -85,7 +89,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="#">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://blog.laravel.com">Blog</a>
