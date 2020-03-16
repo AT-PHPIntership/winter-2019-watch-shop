@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -40,6 +42,36 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'username';
+        return 'email';
     }
+
+    public function checklogin(Request $request)
+    {
+        $data = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 0,
+        ];
+        $dataAdmin = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 1,
+        ];
+        if (Auth::attempt($data))
+        {
+            return redirect()->route('/');
+        }
+        else if (Auth::attempt($dataAdmin))
+        {
+            return redirect()->route('/');
+        }
+        else{
+            return redirect()->route('login');
+        }       
+    }
+    public function checklogout()
+    {
+        Auth::logout();
+        return redirect()->route('/');
+    }      
 }
